@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#202020">
+  <title>Memory list – Huskelister</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="code.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">✓</span>
+        Memory list
+      </div>
+      <span class="storage-status" id="storage-status">Lagres på enheten</span>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <div class="page-heading">
+      <h1>Huskelister</h1>
+      <button class="button button-primary" id="new-list" type="button">
+        <span class="plus" aria-hidden="true">+</span> Ny liste
+      </button>
+    </div>
+
+    <p class="error" id="storage-error" role="alert" hidden></p>
+
+    <div class="layout">
+      <nav class="sidebar panel" aria-labelledby="sidebar-title">
+        <h2 id="sidebar-title">Mine lister</h2>
+        <ul class="list-menu" id="list-menu"></ul>
+        <p class="muted sidebar-empty" id="sidebar-empty" hidden>Du har ingen lister.</p>
+      </nav>
+
+      <section class="list-panel panel" id="list-panel" aria-labelledby="list-title" hidden>
+        <div class="list-header">
+          <div class="list-heading">
+            <span class="category" id="list-category"></span>
+            <h2 id="list-title"></h2>
+          </div>
+          <div class="list-actions">
+            <button class="button button-secondary" id="edit-list" type="button">Rediger</button>
+            <button class="button button-secondary button-delete" id="delete-list" type="button">Slett liste</button>
+          </div>
+        </div>
+
+        <div class="progress">
+          <label for="progress-bar" id="progress-label"></label>
+          <progress id="progress-bar" max="1" value="0"></progress>
+        </div>
+
+        <form class="item-form" id="item-form">
+          <label class="visually-hidden" for="item-name">Nytt punkt</label>
+          <input type="text" id="item-name" maxlength="160" placeholder="Skriv et nytt punkt …" required>
+          <button class="button button-primary" type="submit">
+            <span class="plus" aria-hidden="true">+</span> Legg til
+          </button>
+        </form>
+
+        <ul class="items" id="items"></ul>
+        <div class="empty-state" id="empty-list" hidden>
+          <div class="empty-icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          <h3>Listen er tom</h3>
+          <p>Legg til ditt første punkt ovenfor.</p>
+        </div>
+      </section>
+
+      <section class="panel empty-state no-list" id="no-list" hidden>
+        <div class="empty-icon" aria-hidden="true"><span></span><span></span><span></span></div>
+        <h2>Ingen lister ennå</h2>
+        <p>Velg «Ny liste» for å komme i gang.</p>
+      </section>
+    </div>
+  </main>
+
+  <div id="dialog-backdrop" class="dialog-backdrop" hidden></div>
+
+  <dialog id="list-dialog" aria-labelledby="dialog-title">
+    <form class="dialog-form" id="list-form">
+      <h2 id="dialog-title">Ny liste</h2>
+      <label for="list-name">Listenavn</label>
+      <input type="text" id="list-name" maxlength="80" required autofocus>
+      <label for="list-type">Listetype</label>
+      <select id="list-type">
+        <option value="gift">Gaveønsker</option>
+        <option value="shopping">Handleliste</option>
+        <option value="packing">Pakkeliste</option>
+        <option value="other">Annet</option>
+      </select>
+      <div class="dialog-actions">
+        <button class="button button-secondary" id="cancel-dialog" type="button">Avbryt</button>
+        <button class="button button-primary" type="submit">Lagre liste</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="delete-dialog" aria-labelledby="delete-title" aria-describedby="delete-description">
+    <form class="dialog-form" id="delete-form">
+      <h2 id="delete-title">Slett listen?</h2>
+      <p id="delete-description"></p>
+      <div class="dialog-actions">
+        <button class="button button-secondary" id="cancel-delete" type="button" autofocus>Avbryt</button>
+        <button class="button button-secondary button-delete" type="submit">Slett liste</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
